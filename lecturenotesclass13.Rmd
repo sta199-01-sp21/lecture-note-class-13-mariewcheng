@@ -362,10 +362,10 @@ Consider the mice radiation dataset. Suppose we want to compute a 95% confidence
 
 First, identify the following:
 
-- Population: 
-- Parameter of interest:
-- Sample:
-- Sample size:
+- Population: Mice not on treatments
+- Parameter of interest: Proportion
+- Sample: Mice not on treatments
+- Sample size: 261
 
 ```{r boot_mice}
 boot_prop <- mice %>% 
@@ -383,6 +383,8 @@ ci_mice_died
 
 What does this mean?
 
+We are 95% confident that the true proportion of mice that died is between 69.0% to 79.7%
+
 **Interpretation**:
 
 ```{r visualize_ci_mice}
@@ -395,22 +397,29 @@ visualise(boot_prop) +
 Consider the mice radiation results. Suppose we want to compute a 90% confidence interval for the proportion of mice that lived while on the treatment, regardless of the dose.
 
 ```{r practice_2_bootstrap}
-
+boot_prop_2 <- mice %>% 
+  filter(treat == 1) %>% 
+  mutate(died = if_else(died == 1, "yes", "no")) %>% 
+  specify(response = died, success = "no") %>% 
+  generate(reps = 10000, type = "bootstrap") %>% 
+  calculate(stat = "prop")
 ```
 
 ```{r practice_2_ci}
-
+ci_mice_lived <- get_ci(boot_prop_2, level = .90)
+ci_mice_lived
 ```
 
-Visualizing our Resuts:
+Visualizing our Results:
 
 ```{r practice_2_visualize}
-
+visualise(boot_prop_2) +
+  shade_ci(ci_mice_lived)
 ```
-
 
 Give an interpretation of your result.
 
+We are 90% confident that the true proportion of mice that died is between 55.2% to 65.1%
 
 # References
 
