@@ -1,6 +1,6 @@
 ---
 title: "Simulation-based inference - confidence intervals"
-author: ""
+author: "Marie Cheng"
 date: "March 3, 2021"
 output: html_document
 editor_options: 
@@ -189,7 +189,7 @@ Consider 20 1-bedroom apartments that were randomly selected on
 Craigslist Manhattan from apartments listed as "by owner".
 
 ```{r data_manhattan}
-manhattan <- read_csv("~/manhattan.csv")
+manhattan <- read_csv("~/R/lecture-note-class-13-mariewcheng/manhattan.csv")
 ```
 
 Consider 3-10 day survival of mice randomized to various
@@ -228,6 +228,8 @@ population %>%
 Did everyone get the same value? If fact, each time you sample (run the above
 code chunk) you will most likely get a slightly different mean. (Please ignore impossible values.)
 
+No, I get a different number each time.
+
 The mean is not unique to this phenomenon. There will be variability for
 all of the sample statistics we'll be using to produce confidence intervals.
 
@@ -250,10 +252,10 @@ Create a 95% bootstrap confidence interval for the population *mean* price of
 
 First, identify the following:
 
-- Population: 
-- Parameter of interest:
-- Sample:
-- Sample size:
+- Population: 1 bedroom apartments in Manhattan
+- Parameter of interest: Mean rent price
+- Sample: 1 bedroom apartments 
+- Sample size: 20
 
 To create our confidence interval, we'll follow the four-step bootstrap
 scheme outlined in the slides using functions from `infer`.
